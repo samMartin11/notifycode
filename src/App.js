@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React , {Component} from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class notifyme extends Component{
+  constructor(){
+    super();
+    this.showNotification = this.showNotification.bind(this);
+  }
+  componentDidMount(){
+    if(!("Notification" in window)){
+      console.log("browser doesnt support");
+    }else{
+      Notification.requestPermission();
+    }
+  }
+  showNotification(){
+    new Notification("hi u have 1 notification");
+    console.log("inside showNotification");
+    console.log(Notification.permission);
+  }
+
+  render(){
+    return(
+      <div>
+        <button onClick={this.showNotification}>Click for notification</button>
+
+      </div>
+    );
+  }
+
 }
 
-export default App;
+export default notifyme;
